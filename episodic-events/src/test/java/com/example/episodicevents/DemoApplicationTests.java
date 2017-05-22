@@ -1,4 +1,4 @@
-package com.example.episodicshows;
+package com.example.episodicevents;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
