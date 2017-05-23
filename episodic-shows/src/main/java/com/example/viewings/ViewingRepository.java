@@ -9,10 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by trainer2 on 5/19/17.
+ * Created by trainer2 on 5/23/17.
  */
-
-
 public interface ViewingRepository extends CrudRepository<Viewing, Long> {
 
     @Modifying
@@ -22,6 +20,6 @@ public interface ViewingRepository extends CrudRepository<Viewing, Long> {
 
     List<Viewing> findAllByUserIdOrderByUpdatedAt(Long userId);
 
+    Viewing findViewingByEpisodeId(Long episodeId);
 
 }
-
