@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * Created by trainer2 on 5/22/17.
  */
@@ -19,11 +17,18 @@ public class FastForwardEvent extends Events {
 
     private Data data;
 
-    public FastForwardEvent(String id, Long userId, Long showId, Long episodeId, Date createdAt, Data data) {
-        super(id,userId, showId, episodeId, createdAt);
-        this.data=data;
+//    public FastForwardEvent(String id, Long userId, Long showId, Long episodeId, Date createdAt, DataX data) {
+//        super(id,userId, showId, episodeId, createdAt);
+//        this.data=data;
+//    }
+
+
+    @Getter
+    @Setter
+    private static class Data{
+        int startOffset;
+        int endOffset;
+        float speed;
     }
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.example.episodicevents.events;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,17 +12,26 @@ import java.util.List;
 @RestController
 public class EventsController {
 
-    @Autowired
     private final EventsRepository eventsRepository;
+    private final RabbitTemplate rabbitTemplate;
 
-    public EventsController(EventsRepository eventsRepository) {
+    public EventsController(EventsRepository eventsRepository, RabbitTemplate rabbitTemplate) {
         this.eventsRepository = eventsRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
 
     @PostMapping("/")
     public Object createProduct(@RequestBody Events event) {
         this.eventsRepository.save(event);
+        if(event.getType().equals("progress")){
+            EventMessage eventMessage = new EventMessage();
+            eventMessage.setUserId(event.getUserId());
+            eventMessage.setEpisodeId(event.getEpisodeId());
+            eventMessage.setOffset(((ProgressEvent) event).getData().getOffset());
+            eventMessage.setCreatedAt(event.getCreatedAt());
+            rabbitTemplate.convertAndSend("my-exchange", "my-routing-key",eventMessage);
+        }
         return event;
     }
 

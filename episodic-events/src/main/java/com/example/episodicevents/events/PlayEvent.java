@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * Created by trainer2 on 5/22/17.
  */
@@ -19,9 +17,16 @@ public class PlayEvent extends Events {
 
     private Data data;
 
-    public PlayEvent(String id, Long userId, Long showId, Long episodeId, Date createdAt, Data data) {
-        super(id,userId, showId, episodeId, createdAt);
-        this.data=data;
+//    public PlayEvent(String id, Long userId, Long showId, Long episodeId, Date createdAt, DataX data) {
+//        super(id,userId, showId, episodeId, createdAt);
+//        this.data=data;
+//    }
+
+    @Setter
+    @Getter
+    private static class Data{
+        private int offset;
     }
+
 
 }

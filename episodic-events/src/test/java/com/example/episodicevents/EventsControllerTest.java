@@ -176,6 +176,6 @@ public class EventsControllerTest {
         mvc.perform(request)
                 .andExpect(status().isOk());
     }
-    
+
 
 }
